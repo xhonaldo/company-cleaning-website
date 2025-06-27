@@ -20,7 +20,7 @@ export const Footer: FC<FooterProps> = ({ language }) => {
           <div className="space-y-4">
             <div className="flex items-center gap-2 justify-center md:justify-start">
               <Sparkles className="h-6 w-6 text-primary" />
-              <span className="font-bold text-lg">BlitzBlank</span>
+              <span className="font-bold text-lg">META REINIGUNG</span>
             </div>
             <p className="text-muted-foreground text-sm max-w-xs mx-auto md:mx-0">
               {footerContent.about}
@@ -49,7 +49,7 @@ export const Footer: FC<FooterProps> = ({ language }) => {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>&copy; {currentYear} BlitzBlank. {footerContent.rights}</p>
+          <p>&copy; {currentYear} META REINIGUNG. {footerContent.rights}</p>
         </div>
       </div>
     </footer>

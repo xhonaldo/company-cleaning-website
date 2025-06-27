@@ -42,9 +42,9 @@ export const content = {
     testimonials: {
       title: 'What Our Customers Say',
       items: [
-        {
-          quote: 'BlitzBlank transformed our office space! Their attention to detail is unmatched. Highly recommended for any business.',
-          name: 'Markus T.',
+ {
+          quote: 'META REINIGUNG transformed our office space! Their attention to detail is unmatched. Highly recommended for any business.',
+          name: 'Sarah T.',
           location: 'Berlin',
         },
         {
@@ -82,7 +82,7 @@ export const content = {
       buttonLoading: 'Sending...',
     },
     footer: {
-      about: 'BlitzBlank is your trusted partner for professional cleaning services in Germany, dedicated to creating clean, healthy, and happy environments.',
+      about: 'META REINIGUNG is your trusted partner for professional cleaning services in Germany, dedicated to creating clean, healthy, and happy environments.',
       contact: 'Contact Us',
       rights: 'All rights reserved.',
     },
@@ -130,9 +130,9 @@ export const content = {
     testimonials: {
       title: 'Was unsere Kunden sagen',
       items: [
-        {
-          quote: 'BlitzBlank hat unsere Büroräume verwandelt! Ihre Liebe zum Detail ist unübertroffen. Sehr zu empfehlen für jedes Unternehmen.',
-          name: 'Markus T.',
+ {
+          quote: 'META REINIGUNG hat unsere Büroräume verwandelt! Ihre Liebe zum Detail ist unübertroffen. Sehr zu empfehlen für jedes Unternehmen.',
+          name: 'Sarah K.',
           location: 'Berlin',
         },
         {
@@ -170,7 +170,7 @@ export const content = {
       buttonLoading: 'Wird gesendet...',
     },
     footer: {
-      about: 'BlitzBlank ist Ihr zuverlässiger Partner für professionelle Reinigungsdienste in Deutschland, der sich der Schaffung sauberer, gesunder und glücklicher Umgebungen verschrieben hat.',
+      about: 'META REINIGUNG ist Ihr zuverlässiger Partner für professionelle Reinigungsdienste in Deutschland, der sich der Schaffung sauberer, gesunder und glücklicher Umgebungen verschrieben hat.',
       contact: 'Kontakt',
       rights: 'Alle Rechte vorbehalten.',
     },

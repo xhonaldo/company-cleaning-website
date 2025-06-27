@@ -1,4 +1,4 @@
-# **App Name**: BlitzBlank
+# **App Name**: META REINIGUNG
 
 ## Core Features:
 
@@ -11,7 +11,7 @@
 - AI Cleaning Tip Tool: AI-powered tool that offers tailored cleaning tips based on user location and prevalent local allergens or pollutants.
 
 ## Style Guidelines:
-
+ 
 - Primary color: Clean, vibrant blue (#29ABE2) to evoke cleanliness and trust.
 - Background color: Light, airy gray (#F0F0F0) for a fresh and modern feel.
 - Accent color: Bright green (#90EE90) to highlight calls to action and important information.

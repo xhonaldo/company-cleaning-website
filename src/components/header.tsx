@@ -26,7 +26,7 @@ export const Header: FC<HeaderProps> = ({ language, setLanguage }) => {
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <a href="#" className="flex items-center gap-2">
           <Sparkles className="h-6 w-6 text-primary" />
-          <span className="font-bold text-lg">BlitzBlank</span>
+          <span className="font-bold text-lg">META REINIGUNG</span>
         </a>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           {navLinks.map((link) => (

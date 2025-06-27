@@ -1,7 +1,7 @@
 'use client';
 
-import type { FC } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import type { FC } from 'react'
+import {  useFormStatus } from 'react-dom'
 import { Lightbulb } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { getCleaningTipAction } from '@/lib/actions';
 import { content } from '@/lib/content';
 import type { Language } from './landing-page';
-import { useEffect } from 'react';
+import { useActionState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
 interface AiCleanTipProps {
@@ -33,7 +33,7 @@ function SubmitButton({ text, loadingText }: { text: string; loadingText: string
 
 export const AiCleanTip: FC<AiCleanTipProps> = ({ language }) => {
   const { toast } = useToast();
-  const [state, formAction] = useFormState(getCleaningTipAction, initialState);
+  const { state, formAction } = useActionState(getCleaningTipAction, initialState);
   const tipContent = content[language].aiCleanTip;
 
   useEffect(() => {

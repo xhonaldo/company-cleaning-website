@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'BlitzBlank - Professional Cleaning Services',
+  title: 'META REINIGUNG - Professional Cleaning Services',
   description: 'Your reliable partner for cleaning services in Germany.',
 };
 
