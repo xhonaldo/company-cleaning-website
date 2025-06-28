@@ -47,9 +47,8 @@ export const LandingPage: FC = () => {
           w-80
           max-w-[calc(100vw-1rem)]
           h-96
-          bg-white
+      
           rounded-xl
-          shadow-lg
           flex
           flex-col
           overflow-hidden

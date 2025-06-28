@@ -33,21 +33,6 @@ export default function RootLayout({
       <body className="font-body antialiased">
         {children}
         <Toaster />
-
-        {/* WhatsApp Button */}
-        <a
-          // Replace 'en' with your actual locale variable
-          href={`https://wa.me/491723025501?text=${encodeURIComponent(content.whatsapp.en)}%0A${encodeURIComponent(content.whatsapp.de)}`}
-
-          className="fixed bottom-6 right-6 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition-colors duration-200 ease-in-out flex items-center justify-center z-50"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Chat on WhatsApp"
-
-        >
-          <i className="fab fa-whatsapp text-2xl"></i>
-
-        </a>
       </body>
     </html>
   );
