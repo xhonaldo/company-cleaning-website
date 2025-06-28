@@ -67,6 +67,12 @@ const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  useEffect(() => {
+    if (window.innerWidth <= 640) {
+      setMinimized(true);
+    }
+  }, []);
+
   const handleQuestionClick = async (question: string) => {
     if (
       question === 'Contact us via WhatsApp or Email for more info.' ||
