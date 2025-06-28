@@ -111,40 +111,55 @@ const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
   return (
     <div
       className={`fixed bottom-6 right-6 z-50 flex flex-col bg-white rounded-xl shadow-lg overflow-hidden
+        transition-all duration-300 ease-in-out
         ${minimized ? 'w-56 h-12' : 'w-[400px] h-[500px]'}
-        transition-all duration-300 ease-in-out`}
+      `}
       aria-live="polite"
       aria-label={language === 'de' ? 'Reinigungsassistent Chatbot' : 'Cleaning Assistant Chatbot'}
     >
       {/* Header */}
-      <div className="flex items-center justify-between bg-blue-600 text-white px-4 py-3 relative">
-        <div className="flex items-center space-x-2">
-          <i className="fas fa-broom" aria-hidden="true"></i>
+      <div
+        className={`flex items-center justify-between bg-blue-600 text-white px-3
+          ${minimized ? 'h-12' : 'h-14'}
+          overflow-hidden
+          `}
+      >
+        <div className="flex items-center space-x-2 min-w-0">
+          <i className="fas fa-broom text-lg flex-shrink-0" aria-hidden="true"></i>
           {!minimized && (
-            <h2 className="font-semibold text-lg select-none">
+            <h2
+              className="font-semibold text-lg truncate select-none"
+              title={language === 'de' ? 'Reinigungsassistent' : 'Cleaning Assistant'}
+            >
               {language === 'de' ? 'Reinigungsassistent' : 'Cleaning Assistant'}
             </h2>
           )}
         </div>
 
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2">
           {/* WhatsApp button */}
           <a
             href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
-            className="bg-green-500 text-white p-2 rounded-full shadow-lg hover:bg-green-600 transition-colors duration-200 ease-in-out flex items-center justify-center"
+            className={`bg-green-500 text-white p-2 rounded-full shadow-lg hover:bg-green-600 transition-colors duration-200 ease-in-out flex items-center justify-center
+              ${minimized ? 'w-8 h-8 p-1' : 'w-10 h-10 p-2'}
+            `}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Chat on WhatsApp"
           >
-            <i className="fab fa-whatsapp text-2xl"></i>
+            <i className="fab fa-whatsapp text-xl"></i>
           </a>
 
           {/* Minimize/Maximize button */}
           <button
             onClick={() => setMinimized(!minimized)}
-            aria-label={minimized ? (language === 'de' ? 'Maximieren' : 'Maximize') : (language === 'de' ? 'Minimieren' : 'Minimize')}
-            className="text-white hover:text-gray-300 focus:outline-none"
-            style={{ fontSize: '18px' }}
+            aria-label={
+              minimized
+                ? language === 'de' ? 'Maximieren' : 'Maximize'
+                : language === 'de' ? 'Minimieren' : 'Minimize'
+            }
+            className="text-white hover:text-gray-300 focus:outline-none flex items-center justify-center"
+            style={{ fontSize: '18px', width: minimized ? '28px' : '32px', height: minimized ? '28px' : '32px' }}
           >
             {minimized ? (
               <i className="fas fa-chevron-up"></i>
