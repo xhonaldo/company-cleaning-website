@@ -12,6 +12,7 @@ import { Booking } from './booking';
 import { Footer } from './footer';
 import { AiCleanTip } from './ai-clean-tip';
 import { ContactSection } from './contact-section';
+import Chatbot from './chatbot';
 
 export type Language = 'en' | 'de';
 
@@ -36,6 +37,29 @@ export const LandingPage: FC = () => {
       </main>
       <ContactSection language={language} />
       <Footer language={language} />
+
+      <div
+        className="
+          fixed
+          bottom-28
+          right-6
+          z-50
+          w-80
+          max-w-[calc(100vw-1rem)]
+          h-96
+          bg-white
+          rounded-xl
+          shadow-lg
+          flex
+          flex-col
+          overflow-hidden
+          sm:w-72
+          md:w-80
+        "
+        style={{ maxHeight: '24rem' }}
+      >
+        <Chatbot language={language} />
+      </div>
     </div>
   );
 };

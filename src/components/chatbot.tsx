@@ -1,81 +1,151 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { generateChatResponse } from '@/lib/actions';
+import { useEffect, useRef, useState } from 'react';
 
 interface Message {
   text: string;
-  sender: 'user' | 'ai';
+  sender: 'user' | 'ai' | 'hint';
 }
 
-const cleaningQuestions = [
-  'What services do you offer?',
-  'How can I book a cleaning?',
-  'What areas do you cover?',
-  'What are your prices?',
-  'How does your cleaning process work?',
+interface ChatbotProps {
+  language: string;
+}
+
+// WhatsApp contact info
+const whatsappNumber = '491723025501';
+const whatsappMessage = encodeURIComponent('Hello! I want to chat about cleaning services.');
+
+const cleaningQuestions_en = [
+  'What services do you provide?',
+  'How can I schedule a cleaning appointment?',
+  'What types of cleaning products do you use?',
+  'Do you offer eco-friendly cleaning options?',
+  'What is your cancellation or rescheduling policy?',
+  'Are your cleaners insured and trained?',
+  'Do you supply the cleaning equipment?',
 ];
 
-export const Chatbot = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+const cleaningQuestions_de = [
+  'Welche Dienstleistungen bieten Sie an?',
+  'Wie kann ich einen Reinigungstermin vereinbaren?',
+  'Welche Reinigungsprodukte verwenden Sie?',
+  'Bieten Sie umweltfreundliche Reinigungsoptionen an?',
+  'Wie lautet Ihre Stornierungs- oder Umbuchungsrichtlinie?',
+  'Sind Ihre Reinigungskräfte versichert und geschult?',
+  'Stellen Sie die Reinigungsgeräte zur Verfügung?',
+];
 
-  // Show welcome message on first render
+const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
+  const cleaningQuestions = language === 'de' ? cleaningQuestions_de : cleaningQuestions_en;
+  const [messages, setMessages] = useState<Message[]>([]);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const welcomeMessage: Message = {
-      text: 'Hello! I am your Cleaning Assistant. How can I help you today? Please choose one of the questions below.',
+      text: language === 'de' 
+        ? '🧽 Hallo! Ich bin dein Reinigungsassistent. Tippe eine der untenstehenden Fragen an.' 
+        : '🧽 Hello! I am your Cleaning Assistant. Tap one of the hints below.',
       sender: 'ai',
     };
-    setMessages([welcomeMessage]);
-  }, []);
+    const hintMessages: Message[] = cleaningQuestions.map((q) => ({
+      text: q,
+      sender: 'hint',
+    }));
+
+    const contactMsg: Message = {
+      text: language === 'de' 
+        ? 'Kontaktieren Sie uns per WhatsApp oder E-Mail für weitere Informationen.' 
+        : 'Contact us via WhatsApp or Email for more info.',
+      sender: 'hint',
+    };
+
+    setMessages([welcomeMessage, ...hintMessages, contactMsg]);
+  }, [language, cleaningQuestions]);
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const handleQuestionClick = async (question: string) => {
-    const newUserMessage: Message = { text: question, sender: 'user' };
-    setMessages((prev) => [...prev, newUserMessage]);
+    if (
+      question === 'Contact us via WhatsApp or Email for more info.' || 
+      question === 'Kontaktieren Sie uns per WhatsApp oder E-Mail für weitere Informationen.'
+    ) {
+      window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
+      return;
+    }
+
+    const userMsg: Message = { text: question, sender: 'user' };
+    const loadingMsg: Message = { text: language === 'de' ? 'Tippen...' : 'Typing...', sender: 'ai' };
+
+    setMessages((prev) => [
+      ...prev.filter((m) => m.sender !== 'hint'),
+      userMsg,
+      loadingMsg,
+    ]);
 
     try {
       const aiResponse = await generateChatResponse(question);
-      const newAiMessage: Message = { text: aiResponse, sender: 'ai' };
-      setMessages((prev) => [...prev, newAiMessage]);
+      const aiMsg: Message = { text: aiResponse, sender: 'ai' };
+      const hintMessages: Message[] = cleaningQuestions.map((q) => ({
+        text: q,
+        sender: 'hint',
+      }));
+
+      setMessages((prev) => {
+        const withoutHintsOrLoading = prev.filter(
+          (m) => m.sender !== 'hint' && m.text !== loadingMsg.text
+        );
+        return [...withoutHintsOrLoading, aiMsg, ...hintMessages];
+      });
     } catch (error) {
-      console.error('Error generating chat response:', error);
-      const errorMessage: Message = { text: 'Error: Could not get response.', sender: 'ai' };
-      setMessages((prev) => [...prev, errorMessage]);
+      console.error('Error getting AI response:', error);
+      setMessages((prev) => [
+        ...prev, 
+        { text: language === 'de' ? 'Fehler: Antwort konnte nicht geladen werden.' : 'Error: Could not get response.', sender: 'ai' }
+      ]);
     }
   };
 
   return (
-    <div className="flex flex-col h-96 border rounded-md">
-      <div className="flex-grow overflow-y-auto p-4 space-y-4">
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`flex ${
-              message.sender === 'user' ? 'justify-end' : 'justify-start'
-            }`}
-          >
-            <div
-              className={`max-w-xs px-4 py-2 rounded-lg ${
-                message.sender === 'user'
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-300 text-black'
-              }`}
-            >
-              {message.text}
-            </div>
-          </div>
-        ))}
+    <div className="flex flex-col w-[400px] h-[500px] bg-white rounded-xl shadow-lg fixed bottom-6 right-6 z-50 overflow-hidden">
+      <div className="flex items-center justify-between bg-blue-600 text-white px-4 py-3 relative">
+        <div className="flex items-center space-x-2">
+          <i className="fas fa-broom" aria-hidden="true"></i>
+          <h2 className="font-semibold text-lg select-none">
+            {language === 'de' ? 'Reinigungsassistent' : 'Cleaning Assistant'}
+          </h2>
+        </div>
       </div>
 
-      <div className="border-t p-4 flex flex-col space-y-2">
-        {cleaningQuestions.map((question) => (
-          <button
-            key={question}
-            onClick={() => handleQuestionClick(question)}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 text-left"
-          >
-            {question}
-          </button>
-        ))}
+      <div className="flex-grow overflow-y-auto p-4 space-y-3 bg-gray-50">
+        {messages.map((message, index) =>
+          message.sender === 'hint' ? (
+            <div key={index} className="flex justify-start">
+              <button
+                onClick={() => handleQuestionClick(message.text)}
+                className="text-sm px-3 py-1 rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 transition"
+              >
+                {message.text}
+              </button>
+            </div>
+          ) : (
+            <div
+              key={index}
+              className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+            >
+              <div
+                className={`max-w-xs px-4 py-2 rounded-2xl shadow ${
+                  message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-white text-gray-800'
+                }`}
+              >
+                {message.text}
+              </div>
+            </div>
+          )
+        )}
+        <div ref={chatEndRef} />
       </div>
     </div>
   );
