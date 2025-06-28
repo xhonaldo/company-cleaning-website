@@ -89,15 +89,14 @@ export async function bookCleaningAction(prevState: BookingState, formData: Form
       html: bookingEmail.generateHtml({ name, email, service, message: message || '', phone }),
     });
 
-   // if (error) { 
-
+    if (error) { 
       const whatsappMessage = `New Service Request:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${service}\nMessage: ${message || 'N/A'}`;
       const whatsappLink = `https://wa.me/491723025501?text=${encodeURIComponent(whatsappMessage)}`;
       
        return { message: `Failed to send service request email. You can contact me at whatsapp`, success: false, whatsappLink: whatsappLink };
-    // } else {
-    //     return { message: 'Booking request sent! We will contact you shortly.', success: true, whatsappLink: '' };
-    // }  
+    } else {
+        return { message: 'Booking request sent! We will contact you shortly.', success: true, whatsappLink: '' };
+    }  
 
   } catch (error) {
     console.error('Error sending email:', error);
