@@ -19,27 +19,27 @@ interface GalleryProps {
 
 const galleryImages = [
   {
-    src: "https://placehold.co/600x400.png",
+    src: "/assets/1.jpg",
     alt: "A sparkling clean kitchen",
     hint: "clean kitchen"
   },
   {
-    src: "https://placehold.co/600x400.png",
+    src: "/assets/2.jpg",
     alt: "A tidy and organized office space",
     hint: "organized office"
   },
   {
-    src: "https://placehold.co/600x400.png",
+    src: "/assets/3.jpg",
     alt: "A pristine and shiny bathroom",
     hint: "sparkling bathroom"
   },
   {
-    src: "https://placehold.co/600x400.png",
+    src: "/assets/4.jpg",
     alt: "A living room with gleaming floors",
     hint: "gleaming floors"
   },
   {
-    src: "https://placehold.co/600x400.png",
+    src: "/assets/6.jpg",
     alt: "A bedroom with fresh linens",
     hint: "fresh bedroom"
   },

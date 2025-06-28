@@ -19,7 +19,7 @@ export const ServiceArea: FC<ServiceAreaProps> = ({ language }) => {
         <p className="max-w-3xl mx-auto text-muted-foreground mb-8">{serviceAreaContent.description}</p>
         <div className="max-w-4xl mx-auto rounded-lg overflow-hidden shadow-xl">
           <Image 
-            src="https://placehold.co/1200x600.png"
+            src="/assets/7.jpg"
             alt="Map of Germany"
             width={1200}
             height={600}
