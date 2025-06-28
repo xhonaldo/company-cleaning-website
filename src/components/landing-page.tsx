@@ -11,11 +11,12 @@ import { ServiceArea } from './service-area';
 import { Booking } from './booking';
 import { Footer } from './footer';
 import { AiCleanTip } from './ai-clean-tip';
+import { ContactSection } from './contact-section';
 
 export type Language = 'en' | 'de';
 
 export const LandingPage: FC = () => {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<Language>('de');
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -33,6 +34,7 @@ export const LandingPage: FC = () => {
           </div>
         </div>
       </main>
+      <ContactSection language={language} />
       <Footer language={language} />
     </div>
   );

@@ -87,6 +87,13 @@ export const content = {
       contact: 'Contact Us',
       rights: 'All rights reserved.',
     },
+    contact: {
+      title: 'Contact Information',
+      emailLabel: 'Email:',
+      phoneLabel: 'Phone:',
+      email: 'metareinigung2020@gmail.com',
+      phone: '+49 172 3025501',
+    },
   },
   de: {
     nav: {
@@ -175,6 +182,13 @@ export const content = {
       about: 'META REINIGUNG ist Ihr zuverlässiger Partner für professionelle Reinigungsdienste in Deutschland, der sich der Schaffung sauberer, gesunder und glücklicher Umgebungen verschrieben hat.',
       contact: 'Kontakt',
       rights: 'Alle Rechte vorbehalten.',
+    },
+    contact: {
+      title: 'Kontaktinformationen',
+      emailLabel: 'E-Mail',
+      phoneLabel: 'Telefon',
+      email: 'metareinigung2020@gmail.com',
+      phone: '+49 172 3025501',
     },
   },
   whatsapp: {
