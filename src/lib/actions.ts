@@ -1,10 +1,9 @@
-
 'use server';
 
 import { Resend } from 'resend';
-import { generateCleaningTip } from '@/ai/flows/cleaning-tip-generator';
 import { z } from 'zod';
 import { BookingEmailTemplate } from './emailTemplates';
+import { generateCleaningTip } from '@/ai/flows/cleaning-tip-generator'; // Assuming this exists & is correct
 
 // AI Cleaning Tip Action
 const cleanTipSchema = z.object({
@@ -19,11 +18,13 @@ interface AiTipState {
   };
 }
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY!);
 
 export async function getCleaningTipAction(prevState: AiTipState, formData: FormData): Promise<AiTipState> {
+  const locationValue = formData.get('location');
+
   const validatedFields = cleanTipSchema.safeParse({
-    location: formData.get('location'),
+    location: typeof locationValue === 'string' ? locationValue : '',
   });
 
   if (!validatedFields.success) {
@@ -36,11 +37,23 @@ export async function getCleaningTipAction(prevState: AiTipState, formData: Form
     const { cleaningTip } = await generateCleaningTip({ location: validatedFields.data.location });
     return { tip: cleaningTip, message: 'Success' };
   } catch (error) {
-    console.error(error);
+    console.error('Error generating cleaning tip:', error);
     return { message: 'An error occurred while generating the tip.' };
   }
 }
 
+// Chatbot Action
+export async function generateChatResponse(message: string): Promise<string> {
+  try {
+    const { cleaningTip } = await generateCleaningTip({
+      location: `Respond to this as a helpful chatbot: ${message}`,
+    });
+    return cleaningTip;
+  } catch (error) {
+    console.error('Error generating chatbot response:', error);
+    return 'Error generating response.';
+  }
+}
 
 // Booking Form Action
 const bookingSchema = z.object({
@@ -71,35 +84,38 @@ export async function bookCleaningAction(prevState: BookingState, formData: Form
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: 'Please correct the errors below.',
-      whatsappLink: ''
+      whatsappLink: '',
     };
   }
-  
- // In a real app, you would process the booking here (e.g., save to DB)
+
+  const { name, email, service, message, phone } = validatedFields.data;
 
   try {
-    const { name, email, service, message, phone } = validatedFields.data;
-
-    // Send email using Resend
     const bookingEmail = new BookingEmailTemplate();
-    const { data, error } = await resend.emails.send({
+
+    await resend.emails.send({
       from: 'onboarding@resend.dev',
       to: 'metareinigung2020@gmail.com',
       subject: 'New Booking Received',
       html: bookingEmail.generateHtml({ name, email, service, message: message || '', phone }),
     });
 
-    if (error) { 
-      const whatsappMessage = `New Service Request:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${service}\nMessage: ${message || 'N/A'}`;
-      const whatsappLink = `https://wa.me/491723025501?text=${encodeURIComponent(whatsappMessage)}`;
-      
-       return { message: `Failed to send service request email. You can contact me at whatsapp`, success: false, whatsappLink: whatsappLink };
-    } else {
-        return { message: 'Booking request sent! We will contact you shortly.', success: true, whatsappLink: '' };
-    }  
+    return {
+      message: 'Booking request sent! We will contact you shortly.',
+      success: true,
+      whatsappLink: '',
+    };
 
   } catch (error) {
     console.error('Error sending email:', error);
-    return { message: 'Failed to send booking request. Please try again later.', whatsappLink: '' };
+
+    const whatsappMessage = `New Service Request:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${service}\nMessage: ${message || 'N/A'}`;
+    const whatsappLink = `https://wa.me/491723025501?text=${encodeURIComponent(whatsappMessage)}`;
+
+    return {
+      message: 'Failed to send service request email. You can contact me via WhatsApp.',
+      success: false,
+      whatsappLink,
+    };
   }
 }

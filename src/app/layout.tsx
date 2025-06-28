@@ -3,6 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 import { content } from '@/lib/content';
+import Chatbot from '@/components/chatbot';
 
 export const metadata: Metadata = {
   title: 'META REINIGUNG - Professional Cleaning Services',
@@ -47,6 +48,11 @@ export default function RootLayout({
           <i className="fab fa-whatsapp text-2xl"></i>
     
         </a>
+
+
+        <div className="fixed bottom-24 right-6 z-50 w-80 h-96 bg-white rounded-lg shadow-lg flex flex-col">
+          <Chatbot />
+        </div>
       </body>
     </html>
   );
