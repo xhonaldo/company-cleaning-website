@@ -21,6 +21,7 @@ const initialState = {
   message: undefined,
   errors: undefined,
   success: false,
+  whatsappLink: ''
 };
 
 function SubmitButton({ text, loadingText }: { text: string, loadingText: string }) {
@@ -52,6 +53,12 @@ export const Booking: FC<BookingProps> = ({ language }) => {
       });
     }
   }, [state, toast]);
+
+  useEffect(() => {
+    if (state?.whatsappLink && state.success === false) {
+      window.open(state.whatsappLink, '_blank');
+    }
+  }, [state?.whatsappLink]);
 
   return (
     <Card id="request-for-service" className="shadow-lg">

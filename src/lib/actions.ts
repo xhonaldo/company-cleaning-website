@@ -52,6 +52,7 @@ const bookingSchema = z.object({
 });
 
 interface BookingState {
+  whatsappLink: string;
   message?: string;
   errors?: {
     name?: string[];
@@ -70,25 +71,36 @@ export async function bookCleaningAction(prevState: BookingState, formData: Form
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: 'Please correct the errors below.',
+      whatsappLink: ''
     };
   }
   
-  // In a real app, you would process the booking here (e.g., send email, save to DB)
-  console.log('New Booking Request:', validatedFields.data);
+ // In a real app, you would process the booking here (e.g., save to DB)
 
   try {
     const { name, email, service, message, phone } = validatedFields.data;
+
+    // Send email using Resend
     const bookingEmail = new BookingEmailTemplate();
-    await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: 'onboarding@resend.dev',
       to: 'metareinigung2020@gmail.com',
       subject: 'New Booking Received',
-      html: bookingEmail.generateHtml({ name, email, service, message: message || '', phone: phone }),
+      html: bookingEmail.generateHtml({ name, email, service, message: message || '', phone }),
     });
 
-    return { message: 'Booking request sent! We will contact you shortly.', success: true };
+   // if (error) { 
+
+      const whatsappMessage = `New Service Request:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${service}\nMessage: ${message || 'N/A'}`;
+      const whatsappLink = `https://wa.me/491723025501?text=${encodeURIComponent(whatsappMessage)}`;
+      
+       return { message: `Failed to send service request email. You can contact me at whatsapp`, success: false, whatsappLink: whatsappLink };
+    // } else {
+    //     return { message: 'Booking request sent! We will contact you shortly.', success: true, whatsappLink: '' };
+    // }  
+
   } catch (error) {
     console.error('Error sending email:', error);
-    return { message: 'Failed to send booking request. Please try again later.' };
+    return { message: 'Failed to send booking request. Please try again later.', whatsappLink: '' };
   }
 }
