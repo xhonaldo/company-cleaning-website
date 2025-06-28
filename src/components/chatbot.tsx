@@ -94,6 +94,8 @@ const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
     try {
       console.log('1');
       const aiResponse = await generateChatResponse(question);
+      
+      console.log('AI Response:', aiResponse);
       console.log('2');
 
       const aiMsg: Message = { text: aiResponse, sender: 'ai' };
