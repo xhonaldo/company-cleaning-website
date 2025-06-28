@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { content } from '@/lib/content';
 import type { FC } from 'react';
 import { Header } from './header';
 import { Hero } from './hero';
@@ -14,6 +15,7 @@ import { Footer } from './footer';
 import { AiCleanTip } from './ai-clean-tip';
 import { ContactSection } from './contact-section';
 import Chatbot from './chatbot';
+
 
 export type Language = 'en' | 'de';
 
@@ -40,6 +42,16 @@ export const LandingPage: FC = () => {
       <ContactSection language={language} />
       <Footer language={language} />
 
+      {/* WhatsApp Button */}
+      <a
+        href={`https://wa.me/491723025501?text=${encodeURIComponent(content.whatsapp.en)}%0A${encodeURIComponent(content.whatsapp.de)}`}
+        className="fixed bottom-6 left-6 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition-colors duration-200 ease-in-out flex items-center justify-center z-50"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat on WhatsApp"
+      >
+        <i className="fab fa-whatsapp text-2xl"></i>
+      </a>
       <div   >
         <Chatbot language={language} />
       </div>
