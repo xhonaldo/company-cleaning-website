@@ -92,13 +92,19 @@ const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
     ]);
 
     try {
+      console.log('1');
       const aiResponse = await generateChatResponse(question);
+      console.log('2');
+
       const aiMsg: Message = { text: aiResponse, sender: 'ai' };
+      console.log('3');
+
       const hintMessages: Message[] = cleaningQuestions.map((q) => ({
         text: q,
         sender: 'hint',
       }));
 
+      console.log('4');
       setMessages((prev) => {
         const withoutHintsOrLoading = prev.filter(
           (m) => m.sender !== 'hint' && m.text !== loadingMsg.text
