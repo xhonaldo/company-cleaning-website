@@ -109,6 +109,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
         const withoutHintsOrLoading = prev.filter(
           (m) => m.sender !== 'hint' && m.text !== loadingMsg.text
         );
+        console.log('5');
         return [...withoutHintsOrLoading, aiMsg, ...hintMessages];
       });
     } catch (error) {
