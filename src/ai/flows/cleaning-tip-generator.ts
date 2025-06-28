@@ -24,6 +24,7 @@ const cleaningTipFlow = ai.defineFlow(
   { name: 'cleaningTipFlow', inputSchema: CleaningTipInputSchema, outputSchema: CleaningTipOutputSchema },
   async (input) => {
     const { output } = await cleaningTipPrompt(input);
+    console.log("output", output)
     return output!;
   }
 );
