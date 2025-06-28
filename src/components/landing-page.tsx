@@ -8,6 +8,7 @@ import { Services } from './services';
 import { Gallery } from './gallery';
 import { Testimonials } from './testimonials';
 import { ServiceArea } from './service-area';
+import { Faq } from './faq';
 import { Booking } from './booking';
 import { Footer } from './footer';
 import { AiCleanTip } from './ai-clean-tip';
@@ -27,6 +28,7 @@ export const LandingPage: FC = () => {
         <Services language={language} />
         <Gallery language={language} />
         <Testimonials language={language} />
+        <Faq language={language} />
         <ServiceArea language={language} />
         <div className="py-12 md:py-24 bg-background">
           <div className="container mx-auto px-4 grid gap-12 md:gap-16 lg:grid-cols-2">
@@ -38,9 +40,7 @@ export const LandingPage: FC = () => {
       <ContactSection language={language} />
       <Footer language={language} />
 
-      <div
-     
-      >
+      <div   >
         <Chatbot language={language} />
       </div>
     </div>

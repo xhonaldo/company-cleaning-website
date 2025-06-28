@@ -159,10 +159,35 @@ export const content = {
     },
     contact: {
       title: 'Contact Information',
-      emailLabel: 'Email:',
-      phoneLabel: 'Phone:',
+      emailLabel: 'Email',
+      phoneLabel: 'Phone',
       email: 'metareinigung2020@gmail.com',
       phone: '+49 172 3025501',
+    },
+    faq: {
+      title: 'Frequently Asked Questions',
+      items: [
+        {
+          question: 'What services do you offer?',
+          answer: 'We offer a range of cleaning services including residential cleaning, commercial cleaning, deep cleaning, and window cleaning.',
+        },
+        {
+          question: 'What areas do you serve?',
+          answer: 'We serve major metropolitan areas throughout Germany. Please contact us to confirm service in your specific location.',
+        },
+        {
+          question: 'Are your cleaning products eco-friendly?',
+          answer: 'Yes, we prioritize the use of eco-friendly cleaning products to ensure a safe and healthy environment for our clients and staff.',
+        },
+        {
+          question: 'How can I book a cleaning service?',
+          answer: 'You can book a cleaning service through our website by filling out the booking form, or by contacting us via phone or email.',
+        },
+        {
+          question: 'Do you offer customized cleaning plans?',
+          answer: 'Yes, we can create customized cleaning plans to meet your specific needs and schedule.',
+        },
+      ],
     },
   },
   de: {
@@ -353,6 +378,31 @@ export const content = {
       phoneLabel: 'Telefon',
       email: 'metareinigung2020@gmail.com',
       phone: '+49 172 3025501',
+    },
+    faq: {
+      title: 'Häufig gestellte Fragen',
+      items: [
+        {
+          question: 'Welche Dienstleistungen bieten Sie an?',
+          answer: 'Wir bieten eine Reihe von Reinigungsdienstleistungen an, darunter Haushaltsreinigung, Gewerbereinigung, Grundreinigung und Fensterreinigung.',
+        },
+        {
+          question: 'In welchen Gebieten sind Sie tätig?',
+          answer: 'Wir bedienen die großen Metropolregionen in ganz Deutschland. Bitte kontaktieren Sie uns, um die Verfügbarkeit an Ihrem spezifischen Standort zu bestätigen.',
+        },
+        {
+          question: 'Sind Ihre Reinigungsmittel umweltfreundlich?',
+          answer: 'Ja, wir legen Wert auf die Verwendung umweltfreundlicher Reinigungsmittel, um eine sichere und gesunde Umgebung für unsere Kunden und Mitarbeiter zu gewährleisten.',
+        },
+        {
+          question: 'Wie kann ich eine Reinigungsdienstleistung buchen?',
+          answer: 'Sie können eine Reinigungsdienstleistung über unsere Website buchen, indem Sie das Buchungsformular ausfüllen, oder indem Sie uns telefonisch oder per E-Mail kontaktieren.',
+        },
+        {
+          question: 'Bieten Sie maßgeschneiderte Reinigungspläne an?',
+          answer: 'Ja, wir können maßgeschneiderte Reinigungspläne erstellen, um Ihre spezifischen Bedürfnisse und Zeitpläne zu erfüllen.',
+        },
+      ],
     },
   },
   whatsapp: {
