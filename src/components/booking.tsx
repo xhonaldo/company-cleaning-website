@@ -26,7 +26,7 @@ const initialState = {
 function SubmitButton({ text, loadingText }: { text: string, loadingText: string }) {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" disabled={pending} className="w-full">
+    <Button type="submit" disabled={pending} className="w-full mt-4">
       {pending ? loadingText : text}
     </Button>
   );
@@ -54,9 +54,9 @@ export const Booking: FC<BookingProps> = ({ language }) => {
   }, [state, toast]);
 
   return (
-    <Card id="booking" className="shadow-lg">
+    <Card id="request-for-service" className="shadow-lg">
       <CardHeader>
-        <CardTitle>{bookingContent.title}</CardTitle>
+        <CardTitle>{servicesContent.title}</CardTitle>
         <CardDescription>{servicesContent.items.description}</CardDescription>
       </CardHeader>
       <CardContent>
@@ -64,6 +64,10 @@ export const Booking: FC<BookingProps> = ({ language }) => {
           <div>
             <Input name="name" placeholder={bookingContent.name} aria-label="Name" />
             {state?.errors?.name && <p className="text-sm text-destructive mt-1">{state.errors.name[0]}</p>}
+          </div>
+          <div>
+            <Input name="phone" placeholder={bookingContent.phone} aria-label="Phone Number" />
+            {state?.errors?.phone && <p className="text-sm text-destructive mt-1">{state.errors.phone[0]}</p>}
           </div>
           <div>
             <Input name="email" type="email" placeholder={bookingContent.email} aria-label="Email" />

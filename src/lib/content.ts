@@ -73,6 +73,7 @@ export const content = {
     booking: {
       title: 'Get a Free Quote',
       name: 'Name',
+      phone: 'Phone Number',
       email: 'Email',
       service: 'Service',
       selectService: 'Select a service',
@@ -161,6 +162,7 @@ export const content = {
     booking: {
       title: 'Kostenloses Angebot anfordern',
       name: 'Name',
+      phone: 'Telefonnummer',
       email: 'E-Mail',
       service: 'Leistung',
       selectService: 'Wählen Sie eine Leistung',
