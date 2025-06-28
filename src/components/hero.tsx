@@ -16,7 +16,7 @@ export const Hero: FC<HeroProps> = ({ language }) => {
   return (
     <section className="relative h-[60vh] md:h-[70vh] w-full flex items-center justify-center text-center text-white">
       <Image
-        src="https://placehold.co/1600x900.png"
+        src="/assets/5.jpg"
         alt="Clean and bright living room"
         layout="fill"
         objectFit="cover"
