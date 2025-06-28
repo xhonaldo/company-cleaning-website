@@ -39,23 +39,7 @@ export const LandingPage: FC = () => {
       <Footer language={language} />
 
       <div
-        className="
-          fixed
-          bottom-28
-          right-6
-          z-50
-          w-80
-          max-w-[calc(100vw-1rem)]
-          h-96
-      
-          rounded-xl
-          flex
-          flex-col
-          overflow-hidden
-          sm:w-72
-          md:w-80
-        "
-        style={{ maxHeight: '24rem' }}
+     
       >
         <Chatbot language={language} />
       </div>

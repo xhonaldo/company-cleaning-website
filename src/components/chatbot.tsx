@@ -23,6 +23,7 @@ const cleaningQuestions_en = [
   'What is your cancellation or rescheduling policy?',
   'Are your cleaners insured and trained?',
   'Do you supply the cleaning equipment?',
+  "Contact us via WhatsApp or Email for more info."
 ];
 
 const cleaningQuestions_de = [
@@ -33,6 +34,7 @@ const cleaningQuestions_de = [
   'Wie lautet Ihre Stornierungs- oder Umbuchungsrichtlinie?',
   'Sind Ihre Reinigungskräfte versichert und geschult?',
   'Stellen Sie die Reinigungsgeräte zur Verfügung?',
+  "Kontaktieren Sie uns per WhatsApp oder E-Mail für weitere Informationen."
 ];
 
 const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
@@ -53,14 +55,9 @@ const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
       sender: 'hint',
     }));
 
-    const contactMsg: Message = {
-      text: language === 'de'
-        ? 'Kontaktieren Sie uns per WhatsApp oder E-Mail für weitere Informationen.'
-        : 'Contact us via WhatsApp or Email for more info.',
-      sender: 'hint',
-    };
 
-    setMessages([welcomeMessage, ...hintMessages, contactMsg]);
+
+    setMessages([welcomeMessage, ...hintMessages]);
   }, [language, cleaningQuestions]);
 
   useEffect(() => {
@@ -93,8 +90,6 @@ const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
 
     try {
       const aiResponse = await generateChatResponse(question);
-      console.log('AI Response:', aiResponse);
-      
       const aiMsg: Message = { text: aiResponse, sender: 'ai' };
       const hintMessages: Message[] = cleaningQuestions.map((q) => ({
         text: q,
@@ -118,56 +113,39 @@ const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
 
   return (
     <div
-      className={`fixed bottom-6 right-6 z-50 flex flex-col bg-white rounded-xl shadow-lg overflow-hidden
-        transition-all duration-300 ease-in-out
-        ${minimized ? 'w-56 h-12' : 'w-[400px] h-[500px]'}
-      `}
-      aria-live="polite"
-      aria-label={language === 'de' ? 'Reinigungsassistent Chatbot' : 'Cleaning Assistant Chatbot'}
+      className={`fixed bottom-4 right-4 z-50 flex flex-col bg-white shadow-xl rounded-2xl transition-all duration-300
+      ${minimized ? 'w-16 h-16' : 'w-80 sm:w-96 h-[500px]'}`}
     >
       {/* Header */}
-      <div
-        className={`flex items-center justify-between bg-blue-600 text-white px-3
-          ${minimized ? 'h-12' : 'h-14'}
-          overflow-hidden
-          `}
-      >
-        <div className="flex items-center space-x-2 min-w-0">
-          <i className="fas fa-broom text-lg flex-shrink-0" aria-hidden="true"></i>
+      <div className="flex items-center justify-between bg-blue-600 text-white px-3 h-12 rounded-t-2xl">
+        <div className="flex items-center space-x-2">
+          <i className="fas fa-broom"></i>
           {!minimized && (
-            <h2
-              className="font-semibold text-lg truncate select-none"
-              title={language === 'de' ? 'Reinigungsassistent' : 'Cleaning Assistant'}
-            >
+            <h2 className="font-semibold text-base truncate">
               {language === 'de' ? 'Reinigungsassistent' : 'Cleaning Assistant'}
             </h2>
           )}
         </div>
 
         <div className="flex items-center space-x-2">
-          {/* WhatsApp button */}
-          <a
-            href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
-            className={`bg-green-500 text-white p-2 rounded-full shadow-lg hover:bg-green-600 transition-colors duration-200 ease-in-out flex items-center justify-center
-              ${minimized ? 'w-8 h-8 p-1' : 'w-10 h-10 p-2'}
-            `}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Chat on WhatsApp"
-          >
-            <i className="fab fa-whatsapp text-xl"></i>
-          </a>
+          {/* WhatsApp */}
+          {!minimized && (
+            <a
+              href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
+              className="bg-green-500 p-2 rounded-full hover:bg-green-600 transition"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Chat on WhatsApp"
+            >
+              <i className="fab fa-whatsapp"></i>
+            </a>
+          )}
 
-          {/* Minimize/Maximize button */}
+          {/* Toggle Button */}
           <button
             onClick={() => setMinimized(!minimized)}
-            aria-label={
-              minimized
-                ? language === 'de' ? 'Maximieren' : 'Maximize'
-                : language === 'de' ? 'Minimieren' : 'Minimize'
-            }
-            className="text-white hover:text-gray-300 focus:outline-none flex items-center justify-center"
-            style={{ fontSize: '18px', width: minimized ? '28px' : '32px', height: minimized ? '28px' : '32px' }}
+            aria-label={minimized ? 'Maximize' : 'Minimize'}
+            className="p-1 hover:text-gray-300"
           >
             {minimized ? (
               <i className="fas fa-chevron-up"></i>
@@ -178,26 +156,25 @@ const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
         </div>
       </div>
 
-      {/* Chat content */}
+      {/* Chat Content */}
       {!minimized && (
-        <div className="flex-grow overflow-y-auto p-4 space-y-3 bg-gray-50">
+        <div className="flex flex-col flex-grow bg-gray-50 p-3 overflow-y-auto space-y-2">
           {messages.map((message, index) =>
             message.sender === 'hint' ? (
-              <div key={index} className="flex justify-start">
-                <button
-                  onClick={() => handleQuestionClick(message.text)}
-                  className="text-sm px-3 py-1 rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 transition"
-                >
-                  {message.text}
-                </button>
-              </div>
+              <button
+                key={index}
+                onClick={() => handleQuestionClick(message.text)}
+                className="text-sm px-3 py-1 rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 transition self-start"
+              >
+                {message.text}
+              </button>
             ) : (
               <div
                 key={index}
                 className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-xs px-4 py-2 rounded-2xl shadow ${
+                  className={`px-4 py-2 rounded-2xl shadow text-sm max-w-[75%] ${
                     message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-white text-gray-800'
                   }`}
                 >
