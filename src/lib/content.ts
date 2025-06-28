@@ -177,4 +177,8 @@ export const content = {
       rights: 'Alle Rechte vorbehalten.',
     },
   },
+  whatsapp: {
+    en: "Hello, I'm interested in your cleaning services.",
+    de: "Hallo, ich interessiere mich für Ihre Reinigungsdienste."
+  }
 };

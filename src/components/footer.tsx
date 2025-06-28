@@ -31,22 +31,22 @@ export const Footer: FC<FooterProps> = ({ language }) => {
             <ul className="text-muted-foreground text-sm space-y-1">
               <li className="flex items-center gap-2 justify-center md:justify-start">
                 <Mail className="w-4 h-4" />
-                <span>contact@blitzblank.de</span>
+                <span>metareinigung2020@gmail.com</span>
               </li>
               <li className="flex items-center gap-2 justify-center md:justify-start">
                 <Phone className="w-4 h-4" />
-                <span>+49 123 456 7890</span>
+                <span>+49 172 3025501</span>
               </li>
             </ul>
           </div>
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <h3 className="font-semibold">Follow Us</h3>
             <div className="flex justify-center md:justify-start gap-4 text-muted-foreground">
               <a href="#" className="hover:text-primary"><Twitter className="w-5 h-5" /></a>
               <a href="#" className="hover:text-primary"><Facebook className="w-5 h-5" /></a>
               <a href="#" className="hover:text-primary"><Instagram className="w-5 h-5" /></a>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
           <p>&copy; {currentYear} META REINIGUNG. {footerContent.rights}</p>
